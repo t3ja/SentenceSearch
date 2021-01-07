@@ -13,9 +13,30 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(results, expected)
 
     def test_case_insensitive(self):
-        ss = SentenceSearcher("""I have a cat. I have a mat. Things are going swell.""")
+        ss = SentenceSearcher("""I have a cat. I have a mat. Things are going well.""")
         results = ss.search("MAT")
         expected = "I have a mat."
+        self.assertEqual(results, expected)
+
+    def test_decimal(self):
+        ss = SentenceSearcher("""I have a 5.5 cats. I have 2.3 dogs and 9.4 rats. Things are going swell""")
+        results = ss.search("cats")
+        expected = "I have a 5.5 cats."
+        self.assertEqual(results, expected)
+
+    def test_exact_match(self):
+        ss = SentenceSearcher("""I have a 5.5 cats. I have 2.3 dogs and 9.4 rats. Things are going swell""")
+        results = ss.search("cat")
+        expected = ""
+        self.assertEqual(results, expected)
+
+    def test_abbreviations(self):
+        ss = SentenceSearcher("""Among the finest Orthopaedic Doctors in the city, Dr. Pradeep Kocheeppan 
+        (Apollo Hospital) in Bannerghatta Road, Bangalore is known for offering excellent patient care. The doctor 
+        holds an experience of 8 years and has specialization in A.B.C from University of U.S.A.""")
+        results = ss.search("years")
+        expected = """The doctor 
+        holds an experience of 8 years and has specialization in A.B.C from University of U.S.A."""
         self.assertEqual(results, expected)
 
     def test_exact_match(self):
