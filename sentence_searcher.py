@@ -4,7 +4,14 @@ from typing import List
 
 
 class SentenceSearcher:
+    """
+    SentenceSearcher service
+     - split input text into sentences using regex patterns
+     - search for a given query word and return the first sentence containing the word
+    """
     def __init__(self, corpus):
+        if not isinstance(corpus, str):
+            raise ValueError("Please provide a valid string.")
         self.corpus = corpus
         self.digits = "([0-9])"
         self.alphabets = "([A-Za-z])"
@@ -47,6 +54,8 @@ class SentenceSearcher:
         Returns:
             str: Returns the first sentence containing the query word if exists. Returns an empty string otherwise.
         """
+        if not isinstance(query, str):
+            raise ValueError("Please provide a valid query string.")
         for sentence in self.sentences:
             for word in sentence.split():
                 if query.strip(string.punctuation).lower() == word.strip(string.punctuation).lower():

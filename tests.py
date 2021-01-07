@@ -70,6 +70,18 @@ class MyTestCase(unittest.TestCase):
         (Apollo Hospital) in Bannerghatta Road, Bangalore is known for offering excellent patient care."""
         self.assertEqual(results, expected)
 
+    def test_exception(self):
+        with self.assertRaises(ValueError):
+            SentenceSearcher(123)
+
+    def test_exception_2(self):
+        ss = SentenceSearcher("""Among the finest Orthopaedic Doctors in the city, Dr. Pradeep Kocheeppan 
+        (Apollo Hospital) in Bannerghatta Road, Bangalore is known for offering excellent patient care. The doctor 
+        holds an experience of 8 years and has extensive knowledge in the respective field of medicine. 
+        The clinic is located centrally in Bannerghatta Road, a prominent locality in the city.""")
+        with self.assertRaises(ValueError):
+            ss.search(123)
+
 
 if __name__ == '__main__':
     unittest.main()
